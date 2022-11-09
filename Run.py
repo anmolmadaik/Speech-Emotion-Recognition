@@ -21,7 +21,7 @@ def return_emotion_predict(em):
         return "NEUTRAL"
 
 path = "AudioWAV/1002_DFA_SAD_XX.wav"
-# path = "AudioWAV/1005_ITH_ANG_XX.wav"
+#path = "AudioWAV/1005_ITH_ANG_XX.wav"
 
 
 ws.PlaySound(path, ws.SND_FILENAME)
