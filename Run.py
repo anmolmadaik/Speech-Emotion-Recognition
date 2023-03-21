@@ -20,7 +20,8 @@ def return_emotion_predict(em):
     else:
         return "NEUTRAL"
 
-path = "AudioWAV/1002_DFA_SAD_XX.wav"
+path = "AudioWAV/hahaah.wav"
+# path = "AudioWAV/1002_DFA_SAD_XX.wav"
 #path = "AudioWAV/1005_ITH_ANG_XX.wav"
 
 

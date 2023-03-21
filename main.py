@@ -1,8 +1,5 @@
 import librosa as lb
-import glob
-import csv
 import pandas as pd
-from matplotlib import pyplot as plt
 from sklearn.svm import SVC
 import pickle
 import numpy as np
@@ -52,22 +49,31 @@ for i in range(len(audio)):
     mfcc.append(mf)
 
 
-rmsmean = np.empty((7442, 1))
-chromomean = np.empty((7442, 1))
-melmean = np.empty((7442, 1))
-mfccmean = np.empty((7442, 1))
 
+rmslen = np.empty((7442, 1))
+chromolen = np.empty((7442, 1))
+mellen = np.empty((7442, 1))
+mfcclen = np.empty((7442, 1))
 
 for i in range(len(audio)):
-    rmsmean[i] = np.mean(rms[i])
-    chromomean[i] = np.mean(chromo[i])
-    melmean[i] = np.mean(melmean[i])
-    mfccmean[i] = np.mean(mfcc[i])
+    rmslen[i] = len(rms[i])
+    chromolen[i] = len(chromolen[i])
+    mellen[i] = len(mellen[i])
+    mfcclen[i] = len(mfcclen[i])
 
-df["rms"] = rmsmean
-df["chromo"] = chromomean
-df["mel"] = melmean
-df["mfcc"] = mfccmean
+mx = int(np.max(rmslen))
+
+for i in range(len(rms)):
+    rms[i] = np.pad(rms[i],(0,int(mx-rmslen[i])),'constant')
+    mfcc[i] = np.pad(mfcc[i],(0,int(mx-mfcclen[i])),'constant')
+    mel[i] = np.pad(mel[i],(0,int(mx-mellen[i])),'constant')
+    chromo[i] = np.pad(chromo[i],(0,int(mx-chromolen[i])),'constant')
+
+df["rms"] = rms
+df["chromo"] = chromo
+df["mel"] = mel
+df["mfcc"] = mfcc
+
 
 
 svc = SVC(gamma = 2)
